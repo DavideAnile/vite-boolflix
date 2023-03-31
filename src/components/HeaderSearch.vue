@@ -17,8 +17,8 @@ export default {
 <template>
 
         <div class="input-container">
-            <input v-model="store.searchMovie" type="text" placeholder="Cerca qualcosa" @keyup.enter="$emit('search')">
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input v-model="store.searchText" type="text" placeholder="Cerca qualcosa" @keyup.enter="$emit('searchMovieEvent'), $emit('searchTvShowEvent') ">
+            <button @click="$emit('searchTvShowEvent'), $emit('searchMovieEvent')"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
 </template>

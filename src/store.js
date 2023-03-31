@@ -6,11 +6,16 @@ export const store = reactive({
 
     movieApiCall : 'https://api.themoviedb.org/3/search/movie?api_key=993ed6a9234f0dc067637ff07ea60002',
 
-    movieApiQuery : '&query=',
+    seriesApiCall : 'https://api.themoviedb.org/3/search/tv?api_key=993ed6a9234f0dc067637ff07ea60002',
 
-    searchMovie : '',
+    ApiQuery : '&query=',
 
-    movies : [],
+    searchText : '',
+
+    moviesList : [],
+    moviesListTitle : 'Film in evidenza',
+
+    tvShowsList : [],
 
 
 })

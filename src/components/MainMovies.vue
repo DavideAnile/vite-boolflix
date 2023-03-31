@@ -24,15 +24,20 @@ export default {
             let language = this.movie.original_language
 
             if(language == 'en'){
+
                 language = 'gb'
                 
             } else if ( language == 'ja'){
+
                 language = 'jp'
                
             } else if (language == 'zh'){
+
                 language = 'cn'
             } else if (language == 'ko'){
+
                 language = 'kr'
+                
             } return language
         }
     }
@@ -45,10 +50,10 @@ export default {
 <template>
     
         <div class="card-container">
-            <div> {{ movie.title}} </div>
-            <div> {{ movie.original_title }}</div>
-            <div> <span :class="`fi fi-${flagIcon()} fis`"></span></div>
-            <div> {{ movie.vote_average }} </div>
+            <div> <strong>{{ movie.title}}</strong> </div>
+            <div> <small>({{ movie.original_title }})</small></div>
+            <div>Lingua :  <span :class="`fi fi-${flagIcon()} fis`"></span></div>
+            <div> <em>voto : {{ movie.vote_average }}</em> </div>
         </div>
 
     
@@ -63,6 +68,8 @@ export default {
 
     .card-container{
         width: 200px;
+        border: 1px solid gray;
+        padding: 5px;
     }
 
 

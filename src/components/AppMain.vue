@@ -12,6 +12,7 @@ export default {
 
             store,
 
+            slider : ''
         }
     },
 
@@ -30,6 +31,33 @@ export default {
         MainMovies,
         MainSeries,
     },
+
+    methods : {
+
+        scrollingMoviesRight(){
+
+            this.slider = this.$refs.Movieslider
+            this.slider.scrollBy(450,0)
+        },
+
+        scrollingMoviesLeft(){
+
+            this.slider = this.$refs.Movieslider
+            this.slider.scrollBy(-450,0)
+            },
+
+        scrollingTvshowsRight(){
+
+            this.sliderslider = this.$refs.Tvshowslider
+            this.slider.scrollBy(450,0)
+            },
+
+        scrollingTvshowsLeft(){
+
+            this.slider = this.$refs.Tvshowslider
+            this.slider.scrollBy(-450,0)
+            }
+    }
 }
             
 
@@ -44,11 +72,23 @@ export default {
 
     <h1 v-show="store.moviesList.length != 0">{{ store.moviesListTitle }}</h1>
 
-<section>
-    
-    <MainMovies v-for="movie in store.moviesList" :movie="movie"></MainMovies>
+ <section>
 
-</section>
+     
+     <div class="cover">
+         <div class="slider" ref="Movieslider">
+             
+             <MainMovies v-for="movie in store.moviesList" :movie="movie"></MainMovies>
+             
+            </div>
+        </div>
+
+    <div  @click="scrollingMoviesLeft()" class="left-btn"><button><i class="fa-solid fa-arrow-left"></i></button></div>
+
+    <div @click="scrollingMoviesRight()" class="right-btn"><button><i class="fa-solid fa-arrow-right"></i></button></div>
+
+ </section>   
+    
 
 
 <hr>
@@ -57,9 +97,22 @@ export default {
 
     <h1 v-show="store.tvShowsList.length != 0">Serie Tv</h1>
 
-<section>
+<section v-show="store.tvShowsList.length != 0">
 
-    <MainSeries v-show="store.tvShowsList.length != 0" v-for="tvshow in store.tvShowsList" :tvShow="tvshow"></MainSeries>
+    
+    
+    <div class="cover">
+        <div class="slider" ref="Tvshowslider">
+            
+            <MainSeries v-show="store.tvShowsList.length != 0" v-for="tvshow in store.tvShowsList" :tvShow="tvshow"></MainSeries>
+            
+        </div>
+    </div>
+
+    <div @click="scrollingTvshowsLeft()" class="left-btn"><button><i class="fa-solid fa-arrow-left"></i></button></div>
+
+    <div @click="scrollingTvshowsRight()" class="right-btn"><button><i class="fa-solid fa-arrow-right"></i></button></div>
+
     
 
 </section>
@@ -76,12 +129,108 @@ h1{
 }
 
 section{
+    position: relative;
     display: flex;
-    flex-flow: row wrap;
-    gap: 20px;
-    width: 80%;
-    margin: 50px auto;
-  
-}   
+    justify-content: center;
+    align-items: center;
+
+    .left-btn{
+        position: absolute;
+        left: 160px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        
+        
+        
+    
+            button{
+                width: 40px;
+                height: 40px;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer; 
+    
+                    i{
+                    font-size: 2em;
+               
+                    }
+                }
+        }
+
+
+    .right-btn{
+        position: absolute;
+        right: 160px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        
+        
+        
+    
+            button{
+                width: 40px;
+                height: 40px;
+                border: none;
+                border-radius: 50%; 
+                cursor: pointer;
+    
+                i{
+                    font-size: 2em;
+                
+                }
+            }
+        }
+    .cover{
+        position: relative;
+        width: 90%;
+        height: 100%;
+    
+    
+        .slider{
+        
+        display: flex;
+        justify-content: flex-start;
+    
+        flex-flow: row nowrap;
+        gap: 20px;
+        width: 90%;
+        margin: 50px auto;
+        overflow: hidden;
+        scroll-behavior: smooth;
+    
+        } 
+    }
+    .cover::after{
+        position: absolute;
+        content: "";
+        top: 50px;
+        right: 50px;
+        z-index: 1;
+        width: 200px;
+        height: 500px;
+        background-image: linear-gradient(-90deg, #434343, transparent);
+    }
+    
+    .cover::before{
+        position: absolute;
+        content: "";
+        top: 50px;
+        left: 50px;
+        z-index: 1;
+        width: 200px;
+        height: 500px;
+        background-image: linear-gradient(90deg, #434343, transparent);
+    }
+}
+
+
+
+
+
+
+
+
 
 </style>

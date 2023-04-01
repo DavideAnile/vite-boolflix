@@ -40,6 +40,7 @@ export default {
                      axios.get(newMoviesApiCall).then((res) =>{
                      this.store.moviesList = res.data.results
                      console.log(this.store.moviesList)
+                     console.log(newMoviesApiCall)
                      })
           } 
 

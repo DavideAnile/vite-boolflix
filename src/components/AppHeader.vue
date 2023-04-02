@@ -40,7 +40,7 @@ export default {
                      axios.get(newMoviesApiCall).then((res) =>{
                      this.store.moviesList = res.data.results
                      console.log(this.store.moviesList)
-                     console.log(newMoviesApiCall)
+                     
                      })
           } 
 
@@ -79,21 +79,43 @@ export default {
 <template>
 
     <div class="container">
-        <div class="logo-container">
-            <img src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg" alt="">
-            <div><i class="fa-solid fa-trademark"></i></div>
+        <div class="left-header">
+
+            <div class="logo-container">
+                <img src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg" alt="">
+                <div><i class="fa-solid fa-trademark"></i></div>
+            </div>
+
+            <div>
+                <ul>
+                    <li>Home</li>
+                    <li>Serie TV</li>
+                    <li>Film</li>
+                    <li>Nuovi e Popolari</li>
+                    <li>La mia lista</li>
+                    <li>Sfoglia per Lingua</li>
+                </ul>
+            </div>
+            
         </div>
 
-        <HeaderSearch @searchMovieEvent="searchMovies()" @searchTvShowEvent="searchSeries()"></HeaderSearch>
+        <div class="right-header">
+
+            <HeaderSearch @searchMovieEvent="searchMovies()" @searchTvShowEvent="searchSeries()"></HeaderSearch>
+
+        </div>
+    </div>
             
         
-    </div>
 
 </template>
 
 <style lang="scss" scoped>
 
 .container{
+    position: fixed;
+    width: 100%;
+    z-index: 5;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -101,27 +123,52 @@ export default {
     background-color: black;
     padding: 0 50px;
 
-    .logo-container{
-        position: relative;
+    .left-header{
         display: flex;
-        width: 200px;
-        
-        img{
-            width: 80%;
-        }
+        align-items: center;
+    
 
-        div{
-            position: absolute;
-            right: 15px;
-            top: -10px;
+        .logo-container{
+            position: relative;
+            display: flex;
+            width: 200px;
             
-
-            i{
-                font-size: 1em;
+            img{
+                width: 80%;
             }
+
+            div{
+                position: absolute;
+                right: 15px;
+                top: -10px;
+                
+
+                i{
+                    font-size: 1em;
+                }
+            }
+            
         }
-        
-    }
+
+        ul{
+            display: flex;
+            
+            list-style-type: none;
+
+            li{
+                opacity: .5;
+                transition: .5s;
+                padding: 0 10px;
+            }
+
+            li:hover{
+                opacity: 1;
+                cursor: pointer;
+            }
+            
+        }
+
+    } 
     
 }
     

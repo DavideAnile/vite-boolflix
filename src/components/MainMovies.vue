@@ -17,7 +17,9 @@ export default {
 
     props : {
 
-        movie : Object
+        movie : Object,
+
+        actors : Object,
     },
 
     methods : {
@@ -88,6 +90,7 @@ export default {
                     <div v-if="movie.overview == '' "> <span style="font-weight: bold;">Overview :</span> NON DISPONIBILE </div>
                     <div v-else> <span style="font-weight: bold;">Overview :</span> <em>{{ movie.overview }}</em></div>
                 </div>
+                <!-- <div> attori : <span v-for="actor in actors"> {{ actor.name }} </span> </div> -->
 
             </div>
         </div>

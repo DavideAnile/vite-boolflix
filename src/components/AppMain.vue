@@ -12,7 +12,8 @@ export default {
 
             store,
 
-            slider : ''
+            slider : '',
+            
         }
     },
 
@@ -22,8 +23,35 @@ export default {
         axios.get(this.store.trendApiCall).then((res) =>{
 
             this.store.moviesList = res.data.results
-           
+            console.log(store.moviesList)
         })
+
+            //  for(let i = 0; i < this.store.moviesList.length; i++){
+            
+            //     this.store.moviesId.push(this.store.moviesList[i].id)
+            //     let ActorsApiCall = this.store.movieActorsApiCall + this.store.moviesId[i] + '/credits' + this.store.apiKey
+            //     axios.get(ActorsApiCall).then((response) =>{
+                
+                //             for(let k = 0; k < 5; k++ ){
+                                
+                //                 this.store.movieActors.push(response.data.cast[k].name)
+                            
+                //             }
+                    
+                            
+                //         })
+                        
+                //     }
+                    
+                
+            
+                
+
+                    
+                    
+                    
+            
+            
 
     },
 
@@ -37,26 +65,41 @@ export default {
         scrollingMoviesRight(){
 
             this.slider = this.$refs.Movieslider
-            this.slider.scrollBy(450,0)
+            this.slider.scrollBy(450, 0)
         },
 
+            
         scrollingMoviesLeft(){
 
             this.slider = this.$refs.Movieslider
             this.slider.scrollBy(-450,0)
-            },
+        },
 
+            
         scrollingTvshowsRight(){
 
-            this.sliderslider = this.$refs.Tvshowslider
+            this.slider = this.$refs.Tvshowslider
             this.slider.scrollBy(450,0)
             },
-
+           
         scrollingTvshowsLeft(){
 
             this.slider = this.$refs.Tvshowslider
             this.slider.scrollBy(-450,0)
             }
+            
+            
+
+            
+            
+
+
+            
+
+          
+            
+
+
     }
 }
             
@@ -67,10 +110,15 @@ export default {
 
 <template>
 
-
+    
 <!-- FILMS -->
 
+<div class="films">
     <h1 v-show="store.moviesList.length != 0">{{ store.moviesListTitle }}</h1>
+
+    <div v-show="store.moviesList.length == 0" class="not-found">Nessun Film trovato</div>
+
+</div>
 
  <section>
 
@@ -83,15 +131,15 @@ export default {
             </div>
         </div>
 
-    <div  @click="scrollingMoviesLeft()" class="left-btn"><button><i class="fa-solid fa-arrow-left"></i></button></div>
+    <div v-show="store.moviesList.length > 4" @click="scrollingMoviesLeft()" class="left-btn"><button><i class="fa-solid fa-arrow-left"></i></button></div>
 
-    <div @click="scrollingMoviesRight()" class="right-btn"><button><i class="fa-solid fa-arrow-right"></i></button></div>
+    <div v-show="store.moviesList.length > 4" @click="scrollingMoviesRight()" class="right-btn"><button><i class="fa-solid fa-arrow-right"></i></button></div>
 
  </section>   
     
 
 
-<hr>
+
 
 <!-- SERIE TV -->
 
@@ -104,14 +152,14 @@ export default {
     <div class="cover">
         <div class="slider" ref="Tvshowslider">
             
-            <MainSeries v-show="store.tvShowsList.length != 0" v-for="tvshow in store.tvShowsList" :tvShow="tvshow"></MainSeries>
+            <MainSeries v-show="store.tvShowsList.length != 0" v-for="tvshow in store.tvShowsList" :tvShow="tvshow" :actors="store.movieActors"></MainSeries>
             
         </div>
     </div>
 
-    <div @click="scrollingTvshowsLeft()" class="left-btn"><button><i class="fa-solid fa-arrow-left"></i></button></div>
+    <div v-show="store.tvShowsList.length > 4" @click="scrollingTvshowsLeft()" class="left-btn"><button><i class="fa-solid fa-arrow-left"></i></button></div>
 
-    <div @click="scrollingTvshowsRight()" class="right-btn"><button><i class="fa-solid fa-arrow-right"></i></button></div>
+    <div v-show="store.tvShowsList.length > 4" @click="scrollingTvshowsRight()" class="right-btn"><button><i class="fa-solid fa-arrow-right"></i></button></div>
 
     
 
@@ -123,8 +171,18 @@ export default {
 
 <style lang="scss" scoped>
 
+.films{
+    padding-top: 120px;
+
+    .not-found{
+        text-align: center;
+        font-weight: bold;
+        font-size: 2em;
+    }
+}
+
 h1{
-    padding: 20px 100px;
+    padding: 20px 150px;
     text-transform: uppercase;
 }
 

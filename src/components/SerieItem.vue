@@ -110,6 +110,10 @@ export default {
 
             }
 
+            .no-img:hover{
+                opacity: 0;
+            }
+
             img{
                 
                 width: 100%;

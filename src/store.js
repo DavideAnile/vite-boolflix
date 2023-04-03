@@ -18,11 +18,12 @@ export const store = reactive({
 
     moviesList : [],
     moviesListTitle : 'Film in evidenza',
-    genreMoviesList : [],
+    filteredMoviesList : [],
     // moviesId : [],
     // movieActors: [],
 
     tvShowsList : [],
+    filteredTvShowsList : [],
 
     thumbPath : 'https://image.tmdb.org/t/p/original',
 

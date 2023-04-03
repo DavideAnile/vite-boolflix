@@ -3,8 +3,8 @@
 import axios from "axios"
 import { store } from "../store.js";
 
-import MainMovies from "./MainMovies.vue";
-import MainSeries from "./MainSeries.vue"
+import MovieItem from "./MovieItem.vue";
+import SerieItem from "./SerieItem.vue"
 
 export default {
     data(){
@@ -56,8 +56,8 @@ export default {
     },
 
     components : {
-        MainMovies,
-        MainSeries,
+        MovieItem,
+        SerieItem,
     },
 
     methods : {
@@ -126,7 +126,7 @@ export default {
      <div class="cover">
          <div class="slider" ref="Movieslider">
              
-             <MainMovies v-for="movie in store.moviesList" :movie="movie"></MainMovies>
+             <MovieItem v-for="movie in store.moviesList" :movie="movie"></MovieItem>
              
             </div>
         </div>
@@ -142,8 +142,13 @@ export default {
 
 
 <!-- SERIE TV -->
+<div class="serie">
 
     <h1 v-show="store.tvShowsList.length != 0">Serie Tv</h1>
+    
+    <div v-show="store.tvShowsList.length == 0" class="not-found">Nessuna Serie tv Trovata</div>
+    
+</div>
 
 <section v-show="store.tvShowsList.length != 0">
 
@@ -152,7 +157,7 @@ export default {
     <div class="cover">
         <div class="slider" ref="Tvshowslider">
             
-            <MainSeries v-show="store.tvShowsList.length != 0" v-for="tvshow in store.tvShowsList" :tvShow="tvshow" :actors="store.movieActors"></MainSeries>
+            <SerieItem v-show="store.tvShowsList.length != 0" v-for="tvshow in store.tvShowsList" :tvShow="tvshow" :actors="store.movieActors"></SerieItem>
             
         </div>
     </div>
@@ -174,6 +179,15 @@ export default {
 .films{
     padding-top: 120px;
 
+    .not-found{
+        text-align: center;
+        font-weight: bold;
+        font-size: 2em;
+    }
+}
+
+.serie{
+    padding-bottom: 50px;
     .not-found{
         text-align: center;
         font-weight: bold;

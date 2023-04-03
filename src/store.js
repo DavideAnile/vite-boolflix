@@ -14,9 +14,11 @@ export const store = reactive({
     ApiQuery : '&query=',
 
     searchText : '',
+    searchGenre : 0,
 
     moviesList : [],
     moviesListTitle : 'Film in evidenza',
+    genreMoviesList : [],
     // moviesId : [],
     // movieActors: [],
 

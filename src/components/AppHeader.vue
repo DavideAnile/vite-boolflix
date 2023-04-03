@@ -23,29 +23,71 @@ export default {
 
     //creo metodo per la ricerca dei film    
         searchMovies() {
+            
+            
+            
 
     //SE il valore dell'input è ''        
           if(this.store.searchText == ''){
 
             alert('Inserisci il nome di un Film o di una serie TV!')
 
-    //ALTRIMENTI eseguo la chiamata API        
-          } else {
+    //ALTRIMENTI se il valore della select è ''
+          } else if(this.store.searchGenre == '') {
 
               this.store.moviesListTitle = 'Films'   
      
                  let newMoviesApiCall = this.store.movieApiCall + this.store.ApiQuery + encodeURIComponent(this.store.searchText);
+                 axios.get(newMoviesApiCall).then((res) =>{
+                 this.store.moviesList = res.data.results
+                 
+                 
+                 })
      
-     
-                     axios.get(newMoviesApiCall).then((res) =>{
-                     this.store.moviesList = res.data.results
-                     console.log(this.store.moviesList)
-                     
-                     })
-          } 
+     //ALTRIMENTI SE il valore della select è diverso da ''
+          } else if(this.store.searchGenre != '') {
+
+     // l'array filtrato diventa vuoto       
+                this.store.genreMoviesList = []
+                
+                this.store.moviesListTitle = 'Films'   
+        
+                let newMoviesApiCall = this.store.movieApiCall + this.store.ApiQuery + encodeURIComponent(this.store.searchText);
+                axios.get(newMoviesApiCall).then((res) =>{
+                this.store.moviesList = res.data.results
+                
+    // creo un ciclo per ciclare ogni film all'interno dell'array con tutti i film trovati da 'searchText'            
+                for(let i = 0; i < this.store.moviesList.length; i++){
+                 
+    // Se nella proprietà 'genre_ids' del film con indice [i] è presente il valore della select
+                    if(this.store.moviesList[i].genre_ids.includes(parseInt(this.store.searchGenre))){
+
+            //°pusho quel film dentro l'array filtrato            
+                        this.store.genreMoviesList.push(this.store.moviesList[i])
+                        
+     //ALTRIMENTI non fare niente                   
+                    } else{
+
+                    }
+                    
+                }
+
+    // ALLa fine del ciclo la l'array visualizzato in pagina è uguale all'array filtrato            
+                    this.store.moviesList = this.store.genreMoviesList
+                
+                })
+            
+            }
+                
+        },
 
 
-            },
+
+                        
+                        
+
+                                  
+                
 
 
     //creo metodo per la ricerca delle serie tv        
@@ -63,7 +105,7 @@ export default {
     
                     axios.get(newSeriesApiCall).then((res) =>{
                         this.store.tvShowsList = res.data.results
-                        console.log(this.store.tvShowsList)
+                        
                     })
             }
 

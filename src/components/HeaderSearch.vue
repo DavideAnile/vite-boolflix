@@ -17,13 +17,26 @@ export default {
 <template>
 
         <div class="nav-container">
-            <select name="" id="">
-                <option value="">Genere</option>
+            <select name="" id="" v-model="store.searchGenre">
+                
+                <option value="28">Action</option>
+                <option value="12">Adventure</option>
+                <option value="16">Animation</option>
+                <option value="35">Comedy</option>
+                <option value="80">Crime</option>
+                <option value="99">Documentary</option>
+                <option value="18">Drama</option>
+                <option value="10751">Family</option>
+                <option value="14">Fantasy</option>
+                <option value="27">Horror</option>
+
             </select>
+
             <input v-model="store.searchText" type="text" placeholder="Cerca qualcosa" @keyup.enter="$emit('searchMovieEvent'), $emit('searchTvShowEvent') ">
             <button @click="$emit('searchTvShowEvent'), $emit('searchMovieEvent')"><i class="fa-solid fa-magnifying-glass"></i></button>
             <i class="fa-solid fa-bell" style="font-size: 1.3em;"></i>
             <div class="profile"><img src="/images/Netflix-avatar.png" alt=""></div>
+            
         </div>
 
 </template>
@@ -35,6 +48,10 @@ export default {
         display: flex;
         align-items: center;
         gap: 20px;
+
+        select{
+            padding: 5px;
+        }
 
         input{
             outline: none;

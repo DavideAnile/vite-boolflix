@@ -23,7 +23,7 @@ export default {
         axios.get(this.store.trendApiCall).then((res) =>{
 
             this.store.moviesList = res.data.results
-            console.log(store.moviesList)
+            
         })
 
             //  for(let i = 0; i < this.store.moviesList.length; i++){

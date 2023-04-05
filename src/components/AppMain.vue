@@ -11,7 +11,7 @@ export default {
         return{
 
             store,
-
+            
             slider : '',
             
         }
@@ -19,47 +19,22 @@ export default {
 
     created() {
 
-//All creazione della pagina la proprietà moviesList indicata in 'store.js' si popola con i film in tendenza dell'ultima settimana
+        //Alla creazione della pagina la proprietà moviesList indicata in 'store.js' si popola con i film in tendenza dell'ultima settimana
         axios.get(this.store.trendApiCall).then((res) =>{
 
             this.store.moviesList = res.data.results
             
         })
 
-            //  for(let i = 0; i < this.store.moviesList.length; i++){
-            
-            //     this.store.moviesId.push(this.store.moviesList[i].id)
-            //     let ActorsApiCall = this.store.movieActorsApiCall + this.store.moviesId[i] + '/credits' + this.store.apiKey
-            //     axios.get(ActorsApiCall).then((response) =>{
-                
-                //             for(let k = 0; k < 5; k++ ){
-                                
-                //                 this.store.movieActors.push(response.data.cast[k].name)
-                            
-                //             }
-                    
-                            
-                //         })
-                        
-                //     }
-                    
-                
-            
-                
-
-                    
-                    
-                    
-            
-            
-
     },
-
+             
     components : {
         MovieItem,
         SerieItem,
     },
-
+                    
+                
+            
     methods : {
 
         scrollingMoviesRight(){
@@ -86,19 +61,8 @@ export default {
 
             this.slider = this.$refs.Tvshowslider
             this.slider.scrollBy(-450,0)
-            }
-            
-            
-
-            
-            
-
-
-            
-
-          
-            
-
+            },
+                
 
     }
 }
@@ -107,7 +71,8 @@ export default {
 
 </script>
 
-
+                    
+                    
 <template>
 
     
@@ -117,6 +82,8 @@ export default {
     <h1 v-show="store.moviesList.length != 0">{{ store.moviesListTitle }}</h1>
 
     <div v-show="store.moviesList.length == 0" class="not-found">Nessun Film trovato</div>
+   
+    
 
 </div>
 
@@ -126,7 +93,7 @@ export default {
      <div class="cover">
          <div class="slider" ref="Movieslider">
              
-             <MovieItem v-for="movie in store.moviesList" :movie="movie"></MovieItem>
+             <MovieItem v-for=" (movie, indice)  in store.moviesList" :movie="movie" :key="indice" :indice="indice"></MovieItem>
              
             </div>
         </div>
@@ -136,17 +103,16 @@ export default {
     <div v-show="store.moviesList.length > 4" @click="scrollingMoviesRight()" class="right-btn"><button><i class="fa-solid fa-arrow-right"></i></button></div>
 
  </section>   
-    
-
-
-
-
+                    
+            
 <!-- SERIE TV -->
 <div class="serie">
 
     <h1 v-show="store.tvShowsList.length != 0">Serie Tv</h1>
     
     <div v-show="store.tvShowsList.length == 0" class="not-found">Nessuna Serie tv Trovata</div>
+
+   
     
 </div>
 
@@ -155,9 +121,13 @@ export default {
     
     
     <div class="cover">
+
+        
         <div class="slider" ref="Tvshowslider">
+
             
-            <SerieItem v-show="store.tvShowsList.length != 0" v-for="tvshow in store.tvShowsList" :tvShow="tvshow" :actors="store.movieActors"></SerieItem>
+            
+            <SerieItem v-show="store.tvShowsList.length != 0" v-for=" (tvshow, index) in store.tvShowsList" :tvShow="tvshow" :key="index" :index="index"></SerieItem>
             
         </div>
     </div>
@@ -172,11 +142,12 @@ export default {
     
 
 </template>
-
-
+            
 <style lang="scss" scoped>
 
 .films{
+    
+    position: relative;
     padding-top: 120px;
 
     .not-found{
@@ -184,6 +155,7 @@ export default {
         font-weight: bold;
         font-size: 2em;
     }
+          
 }
 
 .serie{
@@ -192,6 +164,7 @@ export default {
         text-align: center;
         font-weight: bold;
         font-size: 2em;
+        padding-top: 30px;
     }
 }
 
@@ -205,6 +178,7 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
+    
 
     .left-btn{
         position: absolute;
@@ -261,6 +235,7 @@ section{
     
     
         .slider{
+          
         
         display: flex;
         justify-content: flex-start;
@@ -271,6 +246,8 @@ section{
         margin: 50px auto;
         overflow: hidden;
         scroll-behavior: smooth;
+
+            
     
         } 
     }
@@ -282,7 +259,7 @@ section{
         z-index: 1;
         width: 200px;
         height: 500px;
-        background-image: linear-gradient(-90deg, #434343, transparent);
+        background-image: linear-gradient(-90deg, rgb(0, 0, 0), transparent);
     }
     
     .cover::before{
@@ -293,16 +270,45 @@ section{
         z-index: 1;
         width: 200px;
         height: 500px;
-        background-image: linear-gradient(90deg, #434343, transparent);
+        background-image: linear-gradient(90deg, rgb(0, 0, 0), transparent);
     }
 }
 
-
-
-
-
-
-
-
-
 </style>
+
+
+
+
+
+       
+
+       
+          
+            
+            
+
+            
+            
+
+
+            
+
+          
+            
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+

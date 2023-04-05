@@ -19,6 +19,7 @@ export default {
         <div class="nav-container">
             <select name="" id="" v-model="store.searchGenre">
                 
+                <option value="0">Seleziona Genere</option>
                 <option value="28">Action</option>
                 <option value="12">Adventure</option>
                 <option value="16">Animation</option>
@@ -51,12 +52,16 @@ export default {
 
         select{
             padding: 5px;
+            background-color: black;
+            border: 1px solid lightgray;
+            outline: none;
         }
 
         input{
             outline: none;
             padding: 4px 12px;
-            
+            background-color:  rgba(0, 0, 0, 0.315);
+            border: 1px solid lightgray;
             transition: .5s;
         }
 
@@ -67,6 +72,8 @@ export default {
         button{
             padding: 5px;
             cursor: pointer;
+            background-color: black;
+            border: 1px solid lightgray;
         }
 
         .profile{

@@ -23,6 +23,8 @@ export default {
 
     //creo metodo per la ricerca dei film    
         searchMovies() {
+
+            this.store.activeArray = false
            
             //SE il valore dell'input è ''        
                   if(this.store.searchText == ''){
@@ -30,7 +32,7 @@ export default {
                     alert('Inserisci il nome di un Film o di una serie TV!')
         
             //ALTRIMENTI se il valore della select è ''
-                  } else if(this.store.searchGenre == '') {
+                  } else if(this.store.searchGenre == 0) {
         
                         this.store.moviesListTitle = 'Films'   
              
@@ -42,35 +44,36 @@ export default {
                          })
              
              //ALTRIMENTI SE il valore della select è diverso da ''
-                  } else if(this.store.searchGenre != '') {
+                  } else if(this.store.searchGenre != 0) {
         
-             // l'array filtrato diventa vuoto       
+                        // l'array filtrato diventa vuoto       
                         this.store.filteredMoviesList = []
                         
+                        //l'h1 visualizzato in pagina assume valore 'FILMS'
                         this.store.moviesListTitle = 'Films'   
                 
                         let newMoviesApiCall = this.store.movieApiCall + this.store.ApiQuery + encodeURIComponent(this.store.searchText);
                         axios.get(newMoviesApiCall).then((res) =>{
                             
-                        this.store.moviesList = res.data.results
+                            this.store.moviesList = res.data.results
                         
-            // creo un ciclo per ciclare ogni film all'interno dell'array con tutti i film trovati da 'searchText'            
-                        for(let i = 0; i < this.store.moviesList.length; i++){
+                            // creo un ciclo per ciclare ogni film all'interno dell'array con tutti i film trovati da 'searchText'            
+                            for(let i = 0; i < this.store.moviesList.length; i++){
                          
-            // Se nella proprietà 'genre_ids' del film con indice [i] è presente il valore della select
-                            if(this.store.moviesList[i].genre_ids.includes(parseInt(this.store.searchGenre))){
+                                // Se nella proprietà 'genre_ids' del film con indice [i] è presente il valore della select
+                                if(this.store.moviesList[i].genre_ids.includes(parseInt(this.store.searchGenre))){
         
-                    //°pusho quel film dentro l'array filtrato            
-                                this.store.filteredMoviesList.push(this.store.moviesList[i])
+                                    //°pusho quel film dentro l'array filtrato            
+                                    this.store.filteredMoviesList.push(this.store.moviesList[i])
                                 
-             //ALTRIMENTI non fare niente                   
-                            } else{
+                                //ALTRIMENTI non fare niente                   
+                                } else{
         
-                            }
+                                }
                             
-                        }
+                            }
         
-            // ALLa fine del ciclo la l'array visualizzato in pagina è uguale all'array filtrato            
+                            // ALLa fine del ciclo l'array visualizzato in pagina è uguale all'array filtrato            
                             this.store.moviesList = this.store.filteredMoviesList
                         
                         })
@@ -80,27 +83,17 @@ export default {
                 },
             
             
-
-
-
-
-                        
-                        
-
-                                  
-                
-
-
     //creo metodo per la ricerca delle serie tv        
         searchSeries (){
 
+            this.store.activeArray = false
 
-    //SE il valore di input è ''        
+             //SE il valore di input è ''        
             if(this.store.searchText == ''){
 
 
-    //ALTRIMENTI eseguo la chiamata API            
-            } else if(this.store.searchGenre == '') {
+            //ALTRIMENTI eseguo la chiamata API            
+            } else if(this.store.searchGenre == 0) {
 
                 let newSeriesApiCall = this.store.seriesApiCall + this.store.ApiQuery + encodeURIComponent(this.store.searchText);
     
@@ -109,7 +102,7 @@ export default {
                         
                     })
 
-            } else if(this.store.searchGenre != '') {
+            } else if(this.store.searchGenre != 0) {
        
                     this.store.filteredTvShowsList = []
                     let newSeriesApiCall = this.store.seriesApiCall + this.store.ApiQuery + encodeURIComponent(this.store.searchText);
@@ -136,23 +129,14 @@ export default {
                         
         }
     
-                 
-                    
-                
- 
-             
-                   
-                      
-           
-                   
-                   
-
     }
         
 }
-
-
+                 
+                    
 </script>
+
+
 
 <template>
 
@@ -200,6 +184,7 @@ export default {
     height: 100px;
     background-color: black;
     padding: 0 50px;
+    border-bottom: 1px solid lightgray;
 
     .left-header{
         display: flex;
@@ -253,3 +238,22 @@ export default {
 
 
 </style>
+                        
+                        
+
+                                  
+                
+
+
+                
+ 
+             
+                   
+                      
+           
+                   
+                   
+
+
+
+

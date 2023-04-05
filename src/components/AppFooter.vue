@@ -48,6 +48,7 @@ section{
     align-items: center;
     justify-content: center;
     background-color: black;
+    border-top: 1px solid lightgray;
     
 
     .icons-container{

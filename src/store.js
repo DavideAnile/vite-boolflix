@@ -23,13 +23,17 @@ export const store = reactive({
     filteredMoviesList : [],
     moviesId : [],
     movieActors : [],
+    actorsApiCall : '',
 
     tvShowsList : [],
     filteredTvShowsList : [],
     tvShowsID: [],
     tvShowActors : [],
 
-    activeArray : true
+    activeArray : true,
+
+    preferedListStatus : false,
+    preferedList : []
 
 
 

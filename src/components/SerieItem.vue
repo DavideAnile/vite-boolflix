@@ -123,6 +123,8 @@ export default {
                 
         },
 
+        
+
     }
           
 }
@@ -134,6 +136,7 @@ export default {
     <section>
 
         <div class="card-container" @click=" showFilteredActors() ">
+          
             <div class="thumb-container">
                 <div v-if="tvShow.poster_path == null" class="no-img">NO IMAGE FOUND</div>
                 <img v-else :src= " `${this.store.thumbPath + tvShow.poster_path}` "  alt="">
@@ -187,8 +190,6 @@ section{
         border: 1px solid gray;
         cursor: pointer;
         overflow: hidden;
-        
-        
         
 
         .thumb-container{

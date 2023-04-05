@@ -62,7 +62,12 @@ export default {
             this.slider = this.$refs.Tvshowslider
             this.slider.scrollBy(-450,0)
             },
-                
+        
+
+        //AL click l'array preferedList diventa '[ ]'    
+        clearList(){
+            this.store.preferedList = []
+        }    
 
     }
 }
@@ -79,11 +84,11 @@ export default {
 <!-- FILMS -->
 
 <div class="films">
-    <h1 v-show="store.moviesList.length != 0">{{ store.moviesListTitle }}</h1>
+    <h1 v-show="store.moviesList.length != 0" class="title">{{ store.moviesListTitle }}</h1>
 
     <div v-show="store.moviesList.length == 0" class="not-found">Nessun Film trovato</div>
    
-    
+    <div class="clearList" v-show="store.preferedListStatus == true" @click="clearList()">Svuota Lista Preferiti</div>
 
 </div>
 
@@ -93,7 +98,9 @@ export default {
      <div class="cover">
          <div class="slider" ref="Movieslider">
              
-             <MovieItem v-for=" (movie, indice)  in store.moviesList" :movie="movie" :key="indice" :indice="indice"></MovieItem>
+            <MovieItem v-if="store.preferedListStatus == true" v-for=" (movie,index) in store.preferedList" :movie="movie" :key="index" :indice="index"></MovieItem>
+
+            <MovieItem  v-else v-for=" (movie, indice)  in store.moviesList" :movie="movie" :key="indice" :indice="indice"></MovieItem>
              
             </div>
         </div>
@@ -106,9 +113,9 @@ export default {
                     
             
 <!-- SERIE TV -->
-<div class="serie">
+<div class="serie" v-show="store.tvShowsList.length != 0 && store.preferedListStatus == false">
 
-    <h1 v-show="store.tvShowsList.length != 0">Serie Tv</h1>
+    <h1 v-show="store.tvShowsList.length != 0" class="title">Serie Tv</h1>
     
     <div v-show="store.tvShowsList.length == 0" class="not-found">Nessuna Serie tv Trovata</div>
 
@@ -116,7 +123,7 @@ export default {
     
 </div>
 
-<section v-show="store.tvShowsList.length != 0">
+<section v-show="store.tvShowsList.length != 0 && store.preferedListStatus == false" >
 
     
     
@@ -146,16 +153,29 @@ export default {
 <style lang="scss" scoped>
 
 .films{
-    
+    display: flex;
+    justify-content: space-around;
     position: relative;
-    padding-top: 120px;
-
+    
+    .title{
+        margin-top: 120px;
+    }
     .not-found{
         text-align: center;
         font-weight: bold;
         font-size: 2em;
     }
-          
+     
+     .clearList{
+        
+       margin-top: 150px;
+       border: 1px solid white;
+       height: 30px;
+       padding: 0 10px;
+       cursor: pointer;
+       
+     }
+    
 }
 
 .serie{

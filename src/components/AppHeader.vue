@@ -127,6 +127,23 @@ export default {
                           
             }
                         
+        },
+
+        showHome(){
+
+            store.moviesListTitle = 'FILMS'
+            store.preferedListStatus = false
+        },
+
+        showPrefs (){
+
+            if(this.store.preferedList.length == 0){
+                this.store.moviesListTitle = 'AGGIUNGI QUALCHE FILM ALLA TUA LISTA!'
+            } else {
+                this.store.moviesListTitle = 'LA MIA LISTA DI FILMS'
+            }
+
+            store.preferedListStatus = true
         }
     
     }
@@ -150,11 +167,11 @@ export default {
 
             <div>
                 <ul>
-                    <li>Home</li>
+                    <li><a @click="showHome()">Home</a></li>
                     <li>Serie TV</li>
                     <li>Film</li>
                     <li>Nuovi e Popolari</li>
-                    <li>La mia lista</li>
+                    <li><a @click="showPrefs()">La mia lista</a></li>
                     <li>Sfoglia per Lingua</li>
                 </ul>
             </div>
@@ -177,7 +194,7 @@ export default {
 .container{
     position: fixed;
     width: 100%;
-    z-index: 5;
+    z-index: 999;
     display: flex;
     justify-content: space-between;
     align-items: center;

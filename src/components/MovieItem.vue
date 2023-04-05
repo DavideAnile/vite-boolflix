@@ -100,9 +100,18 @@ export default {
             //inizialiazzo variabile che ha valore della chiamata 'base' per recuperare gli attori dei movies
             let movieActorsApiCall = 'https://api.themoviedb.org/3/movie/'
 
-            // creo nuova chiamata API per cercare gli actors in base all'ID cliccato            
-            let ActorsApiCall = movieActorsApiCall + this.store.moviesList[this.indice].id + '/credits' + this.store.apiKey
-            axios.get(ActorsApiCall).then((response) =>{
+            if(this.store.preferedListStatus == true){
+
+                // creo nuova chiamata API per cercare gli actors in base all'ID cliccato            
+                 this.store.actorsApiCall = movieActorsApiCall + this.store.preferedList[this.indice].id + '/credits' + this.store.apiKey
+                
+            } else {
+
+                // creo nuova chiamata API per cercare gli actors in base all'ID cliccato            
+                 this.store.actorsApiCall = movieActorsApiCall + this.store.moviesList[this.indice].id + '/credits' + this.store.apiKey
+            }
+
+            axios.get(this.store.actorsApiCall).then((response) =>{
 
             //Se la lunghezza dell'array 'cast' della response è diverso da 0     
                     if(response.data.cast.length != 0){
@@ -135,6 +144,19 @@ export default {
                         
             })
                 
+        },
+
+
+        addMovie(){
+            //SE il film è gia presente nella lista non aggiungerlo
+            if(this.store.preferedList.includes(this.store.moviesList[this.indice])){
+
+            //ALTRIMENTI pusho il film dentro l'array dei preferiti    
+            } else {
+                
+                this.store.preferedList.push(this.store.moviesList[this.indice])
+            }
+            
         }
     
                 
@@ -142,36 +164,21 @@ export default {
         
 }
            
-
-                
-
-                        
-        
-                
-    
-                    
-    
-     
-        
-    
-
-    
-
-
 </script>
+
 
 <template>
     
     <section>
 
-        <div class="card-container" @click="createStar(), showFilteredActors()">
-
-            <div class="thumb-container">
+        <div class="card-container"  >
+            <div class="button-container" @click="addMovie()" v-show="store.preferedListStatus == false"><i class="fa-solid fa-plus"></i></div>
+            <div class="thumb-container" >
                 <div v-if="movie.poster_path == null" class="no-img">NO IMAGE FOUND</div>
-                <img v-else :src= " `${store.thumbPath + movie.poster_path}` "  alt="">
+                <img v-else :src= " `${store.thumbPath + movie.poster_path}` "  alt="" >
             </div>
 
-            <div class="info-container">
+            <div class="info-container" @click="createStar(), showFilteredActors()">
     
                 <div> <span style="font-weight: bold;"> Titolo :</span> {{ movie.title}} </div>
                 <div> <span style="font-weight: bold;">Titolo Originale :</span>  <small>({{ movie.original_title }})</small></div>
@@ -200,9 +207,8 @@ export default {
     </section>
 
 </template>
-        
 
-
+                        
 <style lang="scss" scoped>
 
 section{
@@ -243,6 +249,32 @@ section{
         overflow: hidden;
         
         
+        .button-container{
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 10px;
+            right: 20px;
+            z-index: 3;
+            width: 30px;
+            height: 30px;
+            border: 1px solid white;
+            border-radius: 50%;
+            background-color: gray;
+            cursor: pointer;
+            transition: .5s;
+            
+            
+
+            
+            
+        }
+
+        .button-container:hover{
+            transform: scale(1.3);
+        }
+
 
         .thumb-container{
             width: 100%;
@@ -311,6 +343,22 @@ section{
 
 
 </style>
+        
+                
+    
+                    
+    
+     
+        
+    
+
+    
+
+
+
+        
+
+
    
 
 
